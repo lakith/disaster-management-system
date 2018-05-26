@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="picker.css"> 
+  <script src="picker.js"></script>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+
+  
+  <style>
+    #imaginary{
+        margin-top:2%; /* Don't copy this */
+    }
+
+
+    #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #imaginary_container{
+        margin-top:3%; /* Don't copy this */
+    }
+    .stylish-input-group .input-group-addon{
+        background: white !important; 
+    }
+    .stylish-input-group .form-control{
+      border-right:0; 
+      box-shadow:0 0 0; 
+      border-color:#ccc;
+    }
+    .stylish-input-group button{
+        border:0;
+        background:transparent;
+    }
+  </style>
+
+
+</head>
+
+<body onload="myFunction()">
+
+
+	<nav class="navbar navbar-expand-md  navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">Suit name</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Our Service</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact Us</a>
+      </li>  
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Dropdown link
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Link 1</a>
+        <a class="dropdown-item" href="#">Link 2</a>
+        <a class="dropdown-item" href="#">Link 3</a>
+      </div>
+    </li>  
+    </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link"><i class="fa fa-user-circle" aria-hidden="true"></i>  Add New Users</a>
+    </li>
+    <li class="navbar-item">
+      <a class="nav-link"><i class="fa fa-sign-in" aria-hidden="true"></i>  Login</a>
+    </li>
+  </ul>
+  </div>  
+</nav>
+
+
+
+<div class="container-fluid">
+ 
+  <div class="row">
+    <div class="col-sm-6">
+     
+      <div id="imaginary_container"> 
+        <div class="input-group stylish-input-group">
+            <input type="text" id="pac-input" class="form-control"  placeholder="Search" >
+            <br>
+            <span class="input-group-addon">
+                <button type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>  
+            </span>
+        </div>
+    </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3E8GH4PEWqF4lvfqsUxgJOzqHZ0_83Sc&sensor=false&libraries=places"></script>
+    <br>
+    <div class="container" id="map-canvas" style="height:600px; width:670px;"></div>
+
+    <script>
+  var x;
+  var y;
+   
+        function init() {
+      var map = new google.maps.Map(document.getElementById("map-canvas"), {
+           center: { lat: 30.2655498, lng: -97.7452663 }, 
+           zoom: 12
+            });
+
+             var marker = new google.maps.Marker({ 
+                 position: {
+                      lat: 30.2655498, 
+                      lng: -97.7452663
+                       },
+
+                        map: map, 
+                        draggable: true
+                         });
+
+                     
+        google.maps.event.addListener(marker,'dragend',function(){
+   
+         var lat = marker.getPosition().lat();
+         var lng = marker.getPosition().lng();
+
+           var x=lat;
+          var y=lng;
+       
+
+         carName = "Volvo";
+        
+ 
+         document.getElementById("setLati").value =x;
+         document.getElementById("setLong").value =x;
+         
+         });    
+
+      
+      
+           
+  
+
+                         
+
+                  var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+                   google.maps.event.addDomListener(searchBox, 'places_changed', function() {
+                        var places = searchBox.getPlaces();
+                         var bounds = new google.maps.LatLngBounds();
+                          var i, place;    
+                          
+                          for (i = 0; place = places[i]; i++) {
+                              bounds.extend(place.geometry.location);
+                                   marker.setPosition(place.geometry.location); 
+                                   }
+
+                                   map.fitBounds(bounds);
+                                    map.setZoom(15); 
+                            });
+        }
+        google.maps.event.addDomListener(window, 'load', init);
+
+        
+        
+    </script>
+      
+     
+
+      
+    </div>
+    <div class="col-sm-6">
+    
+      <h1 id="imaginary">Enter Details</h1>
+
+     
+      <form action="Save_Disaster.php" method="post" enctype="multipart/form-data">
+              
+        <div class="form-group">
+          <label for="ID">ID:</label>
+          <input type="text" class="form-control col-xs-2" id="email" placeholder="Enter ID" name="id">
+        </div>
+        <div class="form-group">
+          <label for="Name">Name:</label>
+          <input type="text" class="form-control col-xs-2" id="pwd" placeholder="Enter Name" name="Name">
+        </div>
+        <div class="form-group">
+          <label for="Date">Date:</label>
+          <input type="text" class="form-control col-xs-2"  id="myText" placeholder="Enter Date" name="Date">
+        </div>
+        <div class="form-group">
+          <label for="Location">Location:</label>
+          <input type="text" class="form-control col-xs-2" id="pwd" placeholder="Enter Location" name="Location">
+        </div>
+        
+       <div class="form-group">
+          <label for="Location">Longitude:</label>
+          <input type="text" class="form-control col-xs-2" id="setLati" placeholder="Enter Latitude" onclick="init()" name="Longitude">
+        </div>
+       
+        <div class="form-group">
+          <label for="Location">Longitude:</label>
+          <input type="text" class="form-control col-xs-2" id="setLong" placeholder="Enter Location" name="Longitude_1">
+        </div>
+
+        <div class="form-group">
+            <label for="Detailst">Details:</label>
+            <textarea class="form-control" rows="2" id="Write comment" name="Details"></textarea>
+           
+            
+        </div>
+
+        <input type="file" name="image"/>
+         
+                  <legend>Add Images</legend> 
+                  <div class="row">
+                      <div class="form-group col-sm-2"> 
+                          <div class="img-picker" name="imag"></div>
+                      </div> 
+                      <div class="form-group col-sm-2"> 
+                          <div class="img-picker"></div>
+                      </div> 
+                      <div class="form-group col-sm-2"> 
+                          <div class="img-picker"></div>
+                      </div> 
+                      <div class="form-group col-sm-2"> 
+                          <div class="img-picker"></div>
+                      </div> 
+                      <div class="form-group col-sm-2"> 
+                          <div class="img-picker"></div>
+                      </div> 
+                  </div>
+               
+        <button type="submit" name="insert" class="btn btn-default">Submit</button> 
+      <!--  <input type="submit" name="submit" value="UPLOAD"/> -->
+      </form>
+      
+      
+    </div>
+  </div>
+</div>
+
+
+<p id="demo" onclick="myLatitude()">dcfd</p>
+<p id="demos"></p>
+  
+ <script>
+    function myFunction() {
+              var d = new Date("July 21, 1983 01:15:00");
+              d.setDate(15);
+              document.getElementById("myText").value = d;
+         }
+
+ </script>
+  
+<nav class="navbar navbar-expand-md navbar-light" id="navstyle" style="background-color: #e3f2fd;">
+<ul class="navbar-nav" id="footer_style">
+   <div class="container">
+   <div class="row">
+    <li class="text-center">Coppy right @ Suite name</li>
+    </div>
+    </div>
+  </ul>
+</nav>
+ 
+</body>
+</html>

@@ -1,0 +1,25 @@
+http://www.saarc-sadkn.org/countries/srilanka/hazard_profile.aspx
+
+
+http://www.desinventar.lk
+
+http://www.disastermin.gov.lk/web/index.php?option=com_content&view=article&id=57%3Ahazard-profile-of-sri-lanka&catid=73%3Areports&Itemid=70&lang=en
+
+
+$check = getimagesize($_FILES["image1"]["tmp_name"]);
+$image = $_FILES['image']['tmp_name'];
+$imgContent = addslashes(file_get_contents($image));
+
+$check = getimagesize($_FILES["image2"]["tmp_name"]);
+$image = $_FILES['image']['tmp_name'];
+$imgContent = addslashes(file_get_contents($image));
+
+$check = getimagesize($_FILES["image3"]["tmp_name"]);
+$image = $_FILES['image']['tmp_name'];
+$imgContent = addslashes(file_get_contents($image));
+
+$check = getimagesize($_FILES["image4"]["tmp_name"]);
+$image = $_FILES['image']['tmp_name'];
+$imgContent = addslashes(file_get_contents($image));
+
+
